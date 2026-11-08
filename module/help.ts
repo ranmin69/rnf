@@ -1,14 +1,5 @@
 import config from "../config.ts";
-
-/**
- * 帮助信息模块：集中管理 --help / -h、--version / -v 的判定逻辑与输出内容。
- */
-export interface HelpModule {
-  readonly isHelpRequest: (args: readonly string[]) => boolean;
-  readonly showHelp: () => void;
-  readonly isVersionRequest: (args: readonly string[]) => boolean;
-  readonly showVersion: () => void;
-}
+import type { HelpModule } from "../types.ts";
 
 /** 触发帮助输出的命令行标志 */
 const HELP_FLAGS: readonly string[] = ["--help", "-h"];

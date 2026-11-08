@@ -1,21 +1,4 @@
-import type { FileInfo } from "./fs.ts";
-
-export type SortType =
-  | "bt-asc"
-  | "bt-desc"
-  | "mt-asc"
-  | "mt-desc"
-  | "at-asc"
-  | "at-desc"
-  | "n-asc"
-  | "n-desc"
-  | "";
-
-export interface ToolModule {
-  readonly fileSort: (arr: FileInfo[], type: SortType) => FileInfo[];
-}
-
-type CompareFn = (a: FileInfo, b: FileInfo) => number;
+import type { CompareFn, FileInfo, SortType, ToolModule } from "../types.ts";
 
 const sortStrategies: Record<SortType, CompareFn> = {
   "bt-asc": (a: FileInfo, b: FileInfo): number => a.birthtime - b.birthtime,

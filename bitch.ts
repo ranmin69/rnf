@@ -7,8 +7,7 @@ import {
   showHelp,
   showVersion,
 } from "./module/help.ts";
-import type { FileInfo } from "./module/fs.ts";
-import type { SortType } from "./module/tool.ts";
+import type { FileInfo, SortType } from "./types.ts";
 
 const args: readonly string[] = Deno.args;
 const argArr: readonly string[] = config.argArr;

@@ -1,22 +1,4 @@
-export interface FileInfo {
-  readonly name: string;
-  readonly fileName: string | number;
-  readonly fileType: string;
-  readonly atime: number;
-  readonly mtime: number;
-  readonly birthtime: number;
-}
-
-export interface FsModule {
-  readonly isSkippedFile: (name: string) => boolean;
-  readonly readDirFile: (extCount: number) => Promise<FileInfo[]>;
-  readonly reName: (
-    fileArr: FileInfo[],
-    baseName: string,
-    start: number | string,
-    dryRun: boolean,
-  ) => Promise<void>;
-}
+import type { FileInfo, FsModule, RenameTask } from "../types.ts";
 
 const { readDir, cwd, rename, stat, stdin } = Deno;
 
@@ -55,10 +37,7 @@ const readDirFile = async (extCount: number): Promise<FileInfo[]> => {
     const nameArr: string[] = name.split(".");
     // 保留最后 extCount 段作为扩展名（如 extCount=2 时 backup.tar.gz 的扩展名为 tar.gz），
     // 段数上限为 nameArr.length - 1，确保基础名至少保留一段
-    const extSegments: number = Math.min(
-      Math.max(extCount, 1),
-      nameArr.length - 1,
-    );
+    const extSegments: number = Math.min(Math.max(extCount, 1), nameArr.length - 1,);
     const fileType: string = nameArr.slice(nameArr.length - extSegments).join(".",);
     const fileName: string = nameArr.slice(0, nameArr.length - extSegments).join(".");
 
@@ -102,22 +81,11 @@ const reName = async (
   const currentDir: string = cwd();
   const TEMP_PREFIX: string = "__rename_tmp_";
 
-  interface RenameTask {
-    readonly oldName: string;
-    readonly newName: string;
-    readonly tempName: string;
-  }
-
   const tasks: RenameTask[] = fileArr.map(
     (file: FileInfo, index: number): RenameTask => {
-      const extension: string = file.fileType === "jpg"
-        ? "jpeg"
-        : file.fileType;
-      const newName: string = `${baseName}${
-        Number(start) + index
-      }.${extension}`;
-      const tempName: string =
-        `${TEMP_PREFIX}${index}_${Date.now()}.${extension}`;
+      const extension: string = file.fileType === "jpg" ? "jpeg" : file.fileType;
+      const newName: string = `${baseName}${Number(start) + index}.${extension}`;
+      const tempName: string = `${TEMP_PREFIX}${index}_${Date.now()}.${extension}`;
       return { oldName: file.name, newName, tempName };
     },
   );
@@ -153,10 +121,7 @@ const reName = async (
 
   // 第二阶段：临时文件名 => 最终文件名
   for (const task of tasks) {
-    await rename(
-      `${currentDir}/${task.tempName}`,
-      `${currentDir}/${task.newName}`,
-    );
+    await rename(`${currentDir}/${task.tempName}`, `${currentDir}/${task.newName}`,);
   }
 
   console.log(`\u001b[32m已重命名 ${tasks.length} 个文件\u001b[0m`, "✅");
