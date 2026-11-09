@@ -18,10 +18,10 @@ const CYAN: string = "\u001b[36m";
 
 /** 帮助信息正文 */
 const helpText: string = `
-${BOLD}${CYAN}Rename${RESET} ${GREEN}v${config.version}${RESET} ${DIM}— 批量文件重命名命令行工具${RESET}
+${BOLD}${CYAN}rnf${RESET} ${GREEN}v${config.version}${RESET} ${DIM}— 批量文件重命名命令行工具${RESET}
 
 ${BOLD}${YELLOW}用法:${RESET}
-  rename ${GREEN}[选项]${RESET}
+  rnf ${GREEN}[选项]${RESET}
 
 ${BOLD}${YELLOW}选项:${RESET}
   ${GREEN}--name${RESET} <名称>   重命名后的基础文件名（不含序号和扩展名）${RED}[必填]${RESET}
@@ -44,10 +44,10 @@ ${BOLD}${YELLOW}排序类型 (--sort):${RESET}
   ${DIM}(不传)${RESET}    不排序，保持文件系统读取顺序
 
 ${BOLD}${YELLOW}示例:${RESET}
-  ${DIM}$${RESET} rename --name photo --start 1 --sort bt-asc
-  ${DIM}$${RESET} rename --start 69 --name 100097210_p --sort bt-desc
-  ${DIM}$${RESET} rename --name photo --start 1 --sort bt-asc --dry-run  ${DIM}# 预览${RESET}
-  ${DIM}$${RESET} rename --name backup --ext 2  ${DIM}# 保留 .tar.gz 两段扩展名${RESET}
+  ${DIM}$${RESET} rnf --name photo --start 1 --sort bt-asc
+  ${DIM}$${RESET} rnf --start 69 --name 100097210_p --sort bt-desc
+  ${DIM}$${RESET} rnf --name photo --start 1 --sort bt-asc --dry-run  ${DIM}# 预览${RESET}
+  ${DIM}$${RESET} rnf --name backup --ext 2  ${DIM}# 保留 .tar.gz 两段扩展名${RESET}
 
 ${BOLD}${YELLOW}注意:${RESET}
   · 请在目标文件所在目录下运行命令
@@ -81,7 +81,7 @@ const isVersionRequest = (args: readonly string[]): boolean =>
  */
 const showVersion = (): void => {
   console.log(
-    `${BOLD}${CYAN}Rename${RESET} ${GREEN}v${config.version}${RESET}`,
+    `${BOLD}${CYAN}rnf${RESET} ${GREEN}v${config.version}${RESET}`,
   );
 };
 

@@ -33,7 +33,7 @@ if (args.length === 0 || isHelpRequest(args)) {
  *
  * 当参数值缺失、或紧跟的是另一个选项（以 `-` 开头）时，视为未传值，
  * 返回 undefined 交由解构默认值兜底。
- * 如 `rename --name --start`：--name 取默认值 ""，--start 取默认值 "1"。
+ * 如 `rnf --name --start`：--name 取默认值 ""，--start 取默认值 "1"。
  */
 function getArg(): (string | undefined)[] {
   return argArr.map((item: string): string | undefined => {

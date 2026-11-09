@@ -1,17 +1,17 @@
-# Rename
+# rnf
 
 一个用于批量重命名文件的命令行工具，基于 Deno 构建，支持多种排序策略，自动避免文件名冲突。执行前会先预览所有更改并要求二次确认，安全可靠。
 
 ## 安装
 
 ```shell
-deno install --allow-read --allow-write -n rename bitch.ts
+deno install --global --allow-read --allow-write -n rnf bitch.ts
 ```
 
 ### 更新（重新安装）
 
 ```shell
-deno install -f --allow-read --allow-write -n rename bitch.ts
+deno install --global -f --allow-read --allow-write -n rnf bitch.ts
 ```
 
 ---
@@ -31,21 +31,21 @@ deno install -f --allow-read --allow-write -n rename bitch.ts
 | `-h` / `--help` | 显示帮助信息 | ❌ | - |
 
 ```shell
-rename --start 69 --name 100097210_p --sort 'bt-desc'
+rnf --start 69 --name 100097210_p --sort 'bt-desc'
 ```
 
-> **提示**：直接运行 `rename`（不带任何参数），或加上 `-h` / `--help`，都会在命令行输出完整帮助信息。
+> **提示**：直接运行 `rnf`（不带任何参数），或加上 `-h` / `--help`，都会在命令行输出完整帮助信息。
 
 ### 查看版本
 
 ```shell
-rename --version
+rnf --version
 ```
 
 输出：
 
 ```text
-Rename v0.4.0
+rnf v0.4.0
 ```
 
 ### 执行流程（预览 + 确认）
@@ -68,7 +68,7 @@ Rename v0.4.0
 若只想查看重命名结果、完全跳过确认与执行，加上 `--dry-run`：
 
 ```shell
-rename --start 1 --name photo --sort 'bt-asc' --dry-run
+rnf --start 1 --name photo --sort 'bt-asc' --dry-run
 ```
 
 ### 自动跳过的文件
@@ -134,7 +134,7 @@ c.jpg   → 创建于 12:00
 ```
 
 ```shell
-rename --name photo --start 1 --sort 'bt-asc'
+rnf --name photo --start 1 --sort 'bt-asc'
 ```
 
 按创建时间升序排列：`b(08:00) → a(10:00) → c(12:00)`
@@ -159,7 +159,7 @@ c.jpg → photo3.jpeg
 用 `--ext` 指定要保留的扩展名段数即可完整保留：
 
 ```shell
-rename --name backup --ext 2
+rnf --name backup --ext 2
 ```
 
 > **说明**：段数上限为文件名实际段数减一，确保基础名至少保留一段；非法值（非数字或小于 1）自动兜底为 `1`。
